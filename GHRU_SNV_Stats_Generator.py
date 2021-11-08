@@ -3,6 +3,13 @@
 # GHRU SNV Quality Stats Generator
 # Dr Zoe A. Dyson (zoe.dyson@lshtm.ac.uk)
 #
+# Documentation - https://github.com/zadyson/GHRU_SNV_Stats_Generator
+#
+# Dependencies:
+#	 SAMtools and bcftools are required.
+#
+# Last modified - November 8th, 2021
+#
 
 # Import required packages
 from argparse import (ArgumentParser, FileType)
