@@ -8,4 +8,5 @@ python2 GHRU_SNV_Stats_Generator.py --bcf ./bcfs/*.bcf --excluded_regions CT18_r
 
 
 Notes for selecting subsets to analyse:
+
 while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru_mapping/filtered_bcfs/${file}.filtered.bcf ./; done<ids.txt
