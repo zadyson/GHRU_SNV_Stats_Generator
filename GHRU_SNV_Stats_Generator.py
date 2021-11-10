@@ -16,7 +16,7 @@ from argparse import (ArgumentParser, FileType)
 import os, sys, re, collections, operator
 
 # Version number
-__version__='0.0.4'
+__version__='0.0.5'
 
 # Set up argument parser 
 def parse_args():
@@ -32,6 +32,8 @@ def parse_args():
 		help='Size of reference chromsome')
 	parser.add_argument('--output_prefix', type=str, required=True,
 		help='Output file prefix')
+	parser.add_argument('--save_high_lowqual', type=bool, required=False, default=False,
+		help='Save vcf data for sequences with >=10% low quality SNVs in non-excluded regions')
 
 	return parser.parse_args()
 
@@ -106,8 +108,9 @@ def main():
 				# Close file for buffering
 				bcf_file.close()
 
-				# delete temp vcf file
-				os.system("rm " + pwd + "/" + os.path.basename(bcf) + ".vcf")
+				# delete temp vcf file if sequence data OK
+				if args.save_high_lowqual==False or (args.save_high_lowqual==True and non_excluded_lowqual_percent < 10):
+					os.system("rm " + pwd + "/" + os.path.basename(bcf) + ".vcf")
 
 				# Output summary data
 				output_snv_summary.write(os.path.basename(bcf) + '\t' + 
