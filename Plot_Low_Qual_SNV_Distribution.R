@@ -12,13 +12,13 @@ library(patchwork)
 `%notin%` <- Negate(`%in%`)
 
 # Import and reformat vcf file into table
-vcf <- read.vcfR("/Users/lshzd1/Dropbox/2021_TGC_WG2/het_script/PID_0267_B6_S149.filtered.bcf.vcf",
+vcf <- read.vcfR("PID_0267_B6_S149.filtered.bcf.vcf",
                  verbose = TRUE )
 vcf2 <- tbl_df(vcf@fix)
 
 
 # Import regions to exclude
-regions <- read_tsv("/Users/lshzd1/Dropbox/2021_TGC_WG2/het_script/CT18_repeats_phages_excluded_regions.tsv",
+regions <- read_tsv("CT18_repeats_phages_excluded_regions.tsv",
                       col_names=F) %>% type_convert()
 
 # build vector of excluded regions
