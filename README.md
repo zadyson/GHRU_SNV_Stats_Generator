@@ -5,6 +5,8 @@ GHRU SNV Quality Stats Generator provides summaries of high and low quality SNV 
 ## Sanger modules to load (and command to load them) before running script:
 
 ```
+module load bsub.py/0.42.1
+
 module load bcftools/1.2--h02bfda8_4
 
 module load samtools/0.1.19--h94a8ba4_6
