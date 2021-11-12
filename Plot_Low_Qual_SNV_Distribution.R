@@ -1,6 +1,6 @@
 # Plot low qual SNV distributions
 # Dr Zoe A Dyson (zoe.dyson@lshtm.ac.uk)
-# Last updated November 11th 2021
+# Last updated November 12th 2021
 
 # Import required packages
 library(vcfR)
@@ -8,17 +8,32 @@ library(tidyverse)
 library(ggplot2)
 library(patchwork)
 
+# Set up 'not in operator'
+`%notin%` <- Negate(`%in%`)
 
 # Import and reformat vcf file into table
 vcf <- read.vcfR("PID_0267_B6_S149.filtered.bcf.vcf",
                  verbose = TRUE )
 vcf2 <- tbl_df(vcf@fix)
 
+
+# Import regions to exclude
+regions <- read_tsv("CT18_repeats_phages_excluded_regions.tsv",
+                      col_names=F) %>% type_convert()
+
+# build vector of excluded regions
+all_excuded_regions <- NULL
+for (region in 1:nrow(regions)){
+  all_excuded_regions <- c(all_excuded_regions, c(as.integer(regions[region,1]):as.integer(regions[region,2])))
+}
+
+
 vcf3 <- vcf2  %>%
   filter(as.numeric(POS) < 4809037) %>%
   filter(ALT %in% c("A","G","T","C")) %>%
   filter(FILTER == "LowQual") %>%
   filter(!grepl("INDEL", INFO)) %>%
+  filter(as.integer(POS) %notin% all_excuded_regions) %>%
   # Extract and create a new column for DP4 from INFO
   mutate(DP4=sub(".*?DP4=(.*?);.*", "\\1",
                  INFO)) %>%
