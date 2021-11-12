@@ -1,6 +1,6 @@
 # Plot low qual SNV distributions
 # Dr Zoe A Dyson (zoe.dyson@lshtm.ac.uk)
-# Last updated November 12th 2021
+# Last updated November 11th 2021
 
 # Import required packages
 library(vcfR)
@@ -12,13 +12,13 @@ library(patchwork)
 `%notin%` <- Negate(`%in%`)
 
 # Import and reformat vcf file into table
-vcf <- read.vcfR("PID_0267_B6_S149.filtered.bcf.vcf",
+vcf <- read.vcfR("/Users/lshzd1/Dropbox/2021_TGC_WG2/het_script/PID_0267_B6_S149.filtered.bcf.vcf",
                  verbose = TRUE )
 vcf2 <- tbl_df(vcf@fix)
 
 
 # Import regions to exclude
-regions <- read_tsv("CT18_repeats_phages_excluded_regions.tsv",
+regions <- read_tsv("/Users/lshzd1/Dropbox/2021_TGC_WG2/het_script/CT18_repeats_phages_excluded_regions.tsv",
                       col_names=F) %>% type_convert()
 
 # build vector of excluded regions
@@ -33,7 +33,6 @@ vcf3 <- vcf2  %>%
   filter(ALT %in% c("A","G","T","C")) %>%
   filter(FILTER == "LowQual") %>%
   filter(!grepl("INDEL", INFO)) %>%
-  filter(as.integer(POS) %notin% all_excuded_regions) %>%
   # Extract and create a new column for DP4 from INFO
   mutate(DP4=sub(".*?DP4=(.*?);.*", "\\1",
                  INFO)) %>%
@@ -60,18 +59,41 @@ vcf3 <- vcf2  %>%
   type_convert()
 
 
-#  Generate plots
+# plot low qual SNVs before exclusion
 plot_points <- vcf3 %>%
   ggplot(aes(x=POS, y=prop_ref), colour="black") + 
   geom_jitter(alpha = 0.1, size=2) + 
   geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
   scale_x_continuous(limits=c(0,4809037)) + 
-  theme_classic()
+  theme_classic() + 
+  ggtitle("All LowQual SNVs")
 
 plot_pos <- vcf3 %>%
   ggplot(aes(x=POS), colour="black") + 
   geom_histogram(bins=200) + 
   scale_x_continuous(limits=c(0,4809037)) + 
-  theme_classic()
+  theme_classic() + 
+  ggtitle("All LowQual SNVs")
 
-plot_points/plot_pos
+# remove SNVs in excluded regions
+vcf4 <- vcf3 %>%
+  filter(as.integer(POS) %notin% all_excuded_regions)
+
+# plot low qual SNVs after exclusion
+plot_points_excluded <- vcf4 %>%
+  ggplot(aes(x=POS, y=prop_ref), colour="black") + 
+  geom_jitter(alpha = 0.1, size=2) + 
+  geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
+  scale_x_continuous(limits=c(0,4809037)) + 
+  theme_classic()  + 
+  ggtitle("Non-excluded LowQual SNVs")
+
+plot_pos_excluded <- vcf4 %>%
+  ggplot(aes(x=POS), colour="black") + 
+  geom_histogram(bins=200) + 
+  scale_x_continuous(limits=c(0,4809037)) + 
+  theme_classic()  + 
+  ggtitle("Non-excluded LowQual SNVs")
+
+# Arrange plots
+plot_points/plot_pos|plot_points_excluded/plot_pos_excluded
