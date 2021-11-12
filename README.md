@@ -14,7 +14,7 @@ module load samtools/0.1.19--h94a8ba4_6
 
 ## Example usage (running from command prompt):
 ```
-python2 GHRU_SNV_Stats_Generator.py --bcf ./mini_test/*.bcf --excluded_regions CT18_repeats_phages_excluded_regions.tsv  --chromosome_size 4809037 --output_prefix test --save_high_lowqual False
+python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_phages_excluded_regions.tsv  --chromosome_size 4809037 --output_prefix test --save_high_lowqual False
 ```
 
 ## Example useage (batch submission to lsf):
