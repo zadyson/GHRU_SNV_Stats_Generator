@@ -37,9 +37,9 @@ File                                 PASS    LowQual  Percent_LowQual  Non-exclu
 ![image](https://user-images.githubusercontent.com/8507671/141644457-7f01fa9c-bc63-4ea9-b455-7f0cac2391a8.png)
 
 
-## Key information
+## Example usage and key information
 
-### Cluster modules to load (and command to load them) before running script:
+### Cluster modules (and dependancies) to load before running the script:
 
 ```
 module load bsub.py/0.42.1
@@ -48,6 +48,8 @@ module load bcftools/1.2--h02bfda8_4
 
 module load samtools/0.1.19--h94a8ba4_6
 ```
+- Note bsub.py is only required if submitting batches of jobs to the Sanger lsf cluster system.  
+
 
 ### Example usage (running from command prompt):
 ```
@@ -59,7 +61,7 @@ python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_
 bash run_bcf_batches.sh Wong2015_Tanzania
 ```
 
-#### Notes for selecting subsets to analyse:
+#### Suggestions for selecting subsets of a larger dataset to analyse
 ```
 while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru_mapping/filtered_bcfs/${file}.filtered.bcf ./; done<ids.txt
 ```
