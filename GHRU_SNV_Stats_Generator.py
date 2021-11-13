@@ -8,7 +8,7 @@
 # Dependencies:
 #	 SAMtools and bcftools are required.
 #
-# Last modified - November 10th, 2021
+# Last modified - November 13th, 2021
 #
 
 # Import required packages
@@ -59,64 +59,64 @@ def main():
 
 	# Open bcf file
 	for bcf in args.bcf:
-				# Convert bcf to vcf and make temp vcf file in script directory
-				os.system("bcftools view " + bcf + " | bcftools view > " + pwd + "/" + os.path.basename(bcf) + ".vcf")
+		# Convert bcf to vcf and make temp vcf file in script directory
+		os.system("bcftools view " + bcf + " | bcftools view > " + pwd + "/" + os.path.basename(bcf) + ".vcf")
 
-				# initiate counter variables to zero
-				pass_snv_count = 0
-				lowqual_snv_count = 0
-				lowqual_percent = 0
+		# initiate counter variables to zero
+		pass_snv_count = 0
+		lowqual_snv_count = 0
+		lowqual_percent = 0
 
-				non_excluded_pass_snv_count = 0
-				non_excluded_lowqual_snv_count = 0
-				non_excluded_lowqual_percent = 0
+		non_excluded_pass_snv_count = 0
+		non_excluded_lowqual_snv_count = 0
+		non_excluded_lowqual_percent = 0
 
-				# Open created vcf file
-				bcf_file = open(pwd + "/" + os.path.basename(bcf) + ".vcf", 'r')
+		# Open created vcf file
+		bcf_file = open(pwd + "/" + os.path.basename(bcf) + ".vcf", 'r')
 
-				# Extract PASS/LowQual SNV calls & ratio
-				for line in bcf_file:
-					# Ignore header lines
-					if not line.startswith('#'):
-						# Ignore indels
-						if "INDEL" not in line:
-							x = line.rstrip().split()
-							# Ignore reference alleles
-							if x[4]!=".":
-								# Ingore concatenated sequences (e.g. plasmids)
-								if int(x[1]) <= args.chromosome_size:
-									# Count PASS and LowQual SNVs
-									if (x[6]=="PASS"):
-										pass_snv_count = pass_snv_count + 1
-										if int(x[1]) not in positions_to_exclude:
-											non_excluded_pass_snv_count = non_excluded_pass_snv_count + 1
-									if (x[6]=="LowQual"):
-										lowqual_snv_count = lowqual_snv_count + 1
-										if int(x[1]) not in positions_to_exclude:
-											non_excluded_lowqual_snv_count = non_excluded_lowqual_snv_count + 1
+		# Extract PASS/LowQual SNV calls & ratio
+		for line in bcf_file:
+			# Ignore header lines
+			if not line.startswith('#'):
+				# Ignore indels
+				if "INDEL" not in line:
+					x = line.rstrip().split()
+					# Ignore reference alleles
+					if x[4]!=".":
+						# Ingore concatenated sequences (e.g. plasmids)
+						if int(x[1]) <= args.chromosome_size:
+							# Count PASS and LowQual SNVs
+							if (x[6]=="PASS"):
+								pass_snv_count = pass_snv_count + 1
+								if int(x[1]) not in positions_to_exclude:
+									non_excluded_pass_snv_count = non_excluded_pass_snv_count + 1
+							if (x[6]=="LowQual"):
+								lowqual_snv_count = lowqual_snv_count + 1
+								if int(x[1]) not in positions_to_exclude:
+									non_excluded_lowqual_snv_count = non_excluded_lowqual_snv_count + 1
 
-				# Get percentage of low quality SNVs
-				if pass_snv_count != 0: 
-					lowqual_percent = (float(lowqual_snv_count)/float(pass_snv_count))*100
-				else: 
-					lowqual_percent = 0
-				if non_excluded_pass_snv_count != 0: 
-					non_excluded_lowqual_percent = (float(non_excluded_lowqual_snv_count)/float(non_excluded_pass_snv_count))*100
-				else: 
-					non_excluded_lowqual_percent = 0
+		# Get percentage of low quality SNVs
+		if pass_snv_count != 0: 
+			lowqual_percent = (float(lowqual_snv_count)/float(pass_snv_count))*100
+		else: 
+			lowqual_percent = 0
+		if non_excluded_pass_snv_count != 0: 
+			non_excluded_lowqual_percent = (float(non_excluded_lowqual_snv_count)/float(non_excluded_pass_snv_count))*100
+		else: 
+			non_excluded_lowqual_percent = 0
 
-				# Close file for buffering
-				bcf_file.close()
+		# Close file for buffering
+		bcf_file.close()
 
-				# delete temp vcf file if sequence data OK
-				if args.save_high_lowqual==False or (args.save_high_lowqual==True and non_excluded_lowqual_percent < 10):
-					os.system("rm " + pwd + "/" + os.path.basename(bcf) + ".vcf")
+		# delete temp vcf file if sequence data OK
+		if args.save_high_lowqual==False or (args.save_high_lowqual==True and non_excluded_lowqual_percent < 10):
+			os.system("rm " + pwd + "/" + os.path.basename(bcf) + ".vcf")
 
-				# Output summary data
-				output_snv_summary.write(os.path.basename(bcf) + '\t' + 
-					str(pass_snv_count) + '\t' + str(lowqual_snv_count) + '\t' + str(lowqual_percent) + '\t' +  
-					str(non_excluded_pass_snv_count) + '\t' + str(non_excluded_lowqual_snv_count) + '\t' +
-					str(non_excluded_lowqual_percent) +'\n')
+		# Output summary data
+		output_snv_summary.write(os.path.basename(bcf) + '\t' + 
+			str(pass_snv_count) + '\t' + str(lowqual_snv_count) + '\t' + str(lowqual_percent) + '\t' +  
+			str(non_excluded_pass_snv_count) + '\t' + str(non_excluded_lowqual_snv_count) + '\t' +
+			str(non_excluded_lowqual_percent) +'\n')
 
 	# Close output file for buffering
 	output_snv_summary.close()
