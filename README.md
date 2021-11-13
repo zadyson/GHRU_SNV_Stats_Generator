@@ -22,6 +22,13 @@ python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_
 bash run_bcf_batches.sh Wong2015_Tanzania
 ```
 
+## What is in this repo?
+**GHRU_SNV_Stats_Generator.py** - python script for extracting high (PASS) and low (LowQual) SNV calls from bcf files produced by the GHRU mapping pipeline.  
+**CT18_repeats_phages_excluded_regions.tsv** - Phage and repeat regions normally excluded from phylogenetic analysis of S. Typhi (CT18: accession no. AL513382). 
+**run_ghru_snv_stats_in_batches.sh** - wrapper script for batch submission of jobs via lsf cluster system  
+**Plot_Low_Qual_SNV_Distribution.R** - example R plotting script - visualises the distribution of low qual SNV calls throughout the reference sequence both before an after the removal of those falling within repetitive and phage regions (normally excluded for phylogenetic analysis).
+
+
 
 ## Notes for selecting subsets to analyse:
 ```
