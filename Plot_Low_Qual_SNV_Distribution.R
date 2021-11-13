@@ -12,7 +12,7 @@ library(patchwork)
 `%notin%` <- Negate(`%in%`)
 
 # Import and reformat vcf file into table
-vcf <- read.vcfR("PID_0267_B6_S149.filtered.bcf.vcf",
+vcf <- read.vcfR("ERR1878035.filtered.bcf.vcf",
                  verbose = TRUE )
 vcf2 <- tbl_df(vcf@fix)
 
@@ -62,8 +62,8 @@ vcf3 <- vcf2  %>%
 # plot low qual SNVs before exclusion
 plot_points <- vcf3 %>%
   ggplot(aes(x=POS, y=prop_ref), colour="black") + 
-  geom_jitter(alpha = 0.1, size=2) + 
-  geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
+  geom_point(alpha = 0.1, size=2) + 
+  geom_point(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic() + 
   ggtitle("All LowQual SNVs") + 
@@ -86,8 +86,8 @@ vcf4 <- vcf3 %>%
 # plot low qual SNVs after exclusion
 plot_points_excluded <- vcf4 %>%
   ggplot(aes(x=POS, y=prop_ref), colour="black") + 
-  geom_jitter(alpha = 0.1, size=2) + 
-  geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
+  geom_point(alpha = 0.1, size=2) + 
+  geom_point(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic()  + 
   ggtitle("Non-excluded LowQual SNVs") + 
