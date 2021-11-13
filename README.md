@@ -31,7 +31,9 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 
 **Plot_Low_Qual_SNV_Distribution.R** - example R plotting script - visualises the distribution of low qual SNV calls throughout the reference sequence both before an after the removal of those falling within repetitive and phage regions (normally excluded for phylogenetic analysis).&nbsp;
 
-
+#### Example plot from above R code
+- Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is false as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual DSNVs) in the code for saving vcfs depending on the QC issue being diagnosed.
+![image](https://user-images.githubusercontent.com/8507671/141644457-7f01fa9c-bc63-4ea9-b455-7f0cac2391a8.png)
 
 
 ## Notes for selecting subsets to analyse:
