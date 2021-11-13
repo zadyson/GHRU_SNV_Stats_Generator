@@ -33,6 +33,7 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 
 #### Example plot from above R code
 - Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is false as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual DSNVs) in the code for saving vcfs depending on the QC issue being diagnosed.
+- For other more sophisticatd vcf visualisation options please see: https://github.com/zadyson/SNV_plotter 
 ![image](https://user-images.githubusercontent.com/8507671/141644457-7f01fa9c-bc63-4ea9-b455-7f0cac2391a8.png)
 
 
@@ -40,4 +41,4 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 ```
 while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru_mapping/filtered_bcfs/${file}.filtered.bcf ./; done<ids.txt
 ```
-Where ids.txt is a plain text file (e.g. created with nano) where one lane id is given per line.
+- Where ids.txt is a plain text file (e.g. created with nano) where one lane id is given per line.
