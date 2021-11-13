@@ -28,6 +28,7 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 #### Example output:
 ```
 column -t test_snv_qc_summary.tsv
+
 File                                 PASS    LowQual  Percent_LowQual  Non-excluded_PASS  Non-excluded_LowQual  Non-excluded_percent_LowQual
 10060_5#21.filtered.bcf              562     239      42.5266903915    471                35                    7.43099787686
 10071_3#74.filtered.bcf              558     239      42.8315412186    471                42                    8.91719745223
