@@ -1,6 +1,6 @@
 # Plot low qual SNV distributions
 # Dr Zoe A Dyson (zoe.dyson@lshtm.ac.uk)
-# Last updated November 11th 2021
+# Last updated November 13th 2021
 
 # Import required packages
 library(vcfR)
@@ -27,7 +27,7 @@ for (region in 1:nrow(regions)){
   all_excuded_regions <- c(all_excuded_regions, c(as.integer(regions[region,1]):as.integer(regions[region,2])))
 }
 
-# Extact low qual SNV calls
+
 vcf3 <- vcf2  %>%
   filter(as.numeric(POS) < 4809037) %>%
   filter(ALT %in% c("A","G","T","C")) %>%
@@ -66,14 +66,18 @@ plot_points <- vcf3 %>%
   geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic() + 
-  ggtitle("All LowQual SNVs")
+  ggtitle("All LowQual SNVs") + 
+  ylab("Proportion of reads mapped") + 
+  xlab("Position in reference")
 
 plot_pos <- vcf3 %>%
   ggplot(aes(x=POS), colour="black") + 
   geom_histogram(bins=200) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic() + 
-  ggtitle("All LowQual SNVs")
+  ggtitle("All LowQual SNVs")+ 
+  xlab("Position in reference") +
+  ylab("Number of SNVs called")
 
 # remove SNVs in excluded regions
 vcf4 <- vcf3 %>%
@@ -86,14 +90,19 @@ plot_points_excluded <- vcf4 %>%
   geom_jitter(aes(x=POS, y=prop_alt), colour="red",alpha = 0.1, size=2) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic()  + 
-  ggtitle("Non-excluded LowQual SNVs")
+  ggtitle("Non-excluded LowQual SNVs") + 
+  ylab("Proportion of reads mapped") + 
+  xlab("Position in reference")
+
 
 plot_pos_excluded <- vcf4 %>%
   ggplot(aes(x=POS), colour="black") + 
   geom_histogram(bins=200) + 
   scale_x_continuous(limits=c(0,4809037)) + 
   theme_classic()  + 
-  ggtitle("Non-excluded LowQual SNVs")
+  ggtitle("Non-excluded LowQual SNVs") + 
+  xlab("Position in reference") +
+  ylab("Number of SNVs called")
 
 # Arrange plots
 plot_points/plot_pos|plot_points_excluded/plot_pos_excluded
