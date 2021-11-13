@@ -27,7 +27,7 @@ for (region in 1:nrow(regions)){
   all_excuded_regions <- c(all_excuded_regions, c(as.integer(regions[region,1]):as.integer(regions[region,2])))
 }
 
-
+# Extact low qual SNV calls
 vcf3 <- vcf2  %>%
   filter(as.numeric(POS) < 4809037) %>%
   filter(ALT %in% c("A","G","T","C")) %>%
