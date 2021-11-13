@@ -1,27 +1,6 @@
 # GHRU_SNV_Stats_Generator
 GHRU SNV Quality Stats Generator provides summaries of high and low quality SNV calls from the GHRU mapping pipeline
 
-
-## Cluster modules to load (and command to load them) before running script:
-
-```
-module load bsub.py/0.42.1
-
-module load bcftools/1.2--h02bfda8_4
-
-module load samtools/0.1.19--h94a8ba4_6
-```
-
-## Example usage (running from command prompt):
-```
-python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_phages_excluded_regions.tsv  --chromosome_size 4809037 --output_prefix test --save_high_lowqual False
-```
-
-## Example useage (batch submission to lsf):
-```
-bash run_bcf_batches.sh Wong2015_Tanzania
-```
-
 ## What is in this repo?
 **GHRU_SNV_Stats_Generator.py** - python script for extracting high (PASS) and low (LowQual) SNV calls from bcf files produced by the GHRU mapping pipeline (available at: https://gitlab.com/cgps/ghru/pipelines/snp_phylogeny/).  Output is a tsv file of PASS and LowQual SNVs both inside and outside excluded reigons (e.g. repetitive and prophage reigons normally exlcuded for phylogentic analyses).  &nbsp;
 
@@ -58,7 +37,29 @@ File                                 PASS    LowQual  Percent_LowQual  Non-exclu
 ![image](https://user-images.githubusercontent.com/8507671/141644457-7f01fa9c-bc63-4ea9-b455-7f0cac2391a8.png)
 
 
-## Notes for selecting subsets to analyse:
+## Key information
+
+### Cluster modules to load (and command to load them) before running script:
+
+```
+module load bsub.py/0.42.1
+
+module load bcftools/1.2--h02bfda8_4
+
+module load samtools/0.1.19--h94a8ba4_6
+```
+
+### Example usage (running from command prompt):
+```
+python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_phages_excluded_regions.tsv  --chromosome_size 4809037 --output_prefix test --save_high_lowqual False
+```
+
+### Example useage (batch submission to lsf):
+```
+bash run_bcf_batches.sh Wong2015_Tanzania
+```
+
+#### Notes for selecting subsets to analyse:
 ```
 while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru_mapping/filtered_bcfs/${file}.filtered.bcf ./; done<ids.txt
 ```
