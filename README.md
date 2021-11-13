@@ -23,7 +23,7 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 ```
 
 ## What is in this repo?
-**GHRU_SNV_Stats_Generator.py** - python script for extracting high (PASS) and low (LowQual) SNV calls from bcf files produced by the GHRU mapping pipeline.&nbsp;
+**GHRU_SNV_Stats_Generator.py** - python script for extracting high (PASS) and low (LowQual) SNV calls from bcf files produced by the GHRU mapping pipeline (available at: https://gitlab.com/cgps/ghru/pipelines/snp_phylogeny/).&nbsp;
 
 **CT18_repeats_phages_excluded_regions.tsv** - Phage and repeat regions normally excluded from phylogenetic analysis of S. Typhi (CT18: accession no. AL513382).&nbsp;
 
@@ -32,7 +32,7 @@ bash run_bcf_batches.sh Wong2015_Tanzania
 **Plot_Low_Qual_SNV_Distribution.R** - example R plotting script - visualises the distribution of low qual SNV calls throughout the reference sequence both before an after the removal of those falling within repetitive and phage regions (normally excluded for phylogenetic analysis).&nbsp;
 
 #### Example plot from above R code
-- Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is false as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual DSNVs) in the code for saving vcfs depending on the QC issue being diagnosed.
+- Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is 'False' as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual SNVs) in the code for saving vcfs depending on the QC issue being diagnosed.
 - For other more sophisticatd vcf visualisation options please see: https://github.com/zadyson/SNV_plotter 
 ![image](https://user-images.githubusercontent.com/8507671/141644457-7f01fa9c-bc63-4ea9-b455-7f0cac2391a8.png)
 
