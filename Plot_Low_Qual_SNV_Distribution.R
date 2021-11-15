@@ -1,6 +1,6 @@
 # Plot low qual SNV distributions
 # Dr Zoe A Dyson (zoe.dyson@lshtm.ac.uk)
-# Last updated November 13th 2021
+# Last updated November 15th 2021
 
 # Import required packages
 library(vcfR)
@@ -12,7 +12,7 @@ library(patchwork)
 `%notin%` <- Negate(`%in%`)
 
 # Import and reformat vcf file into table
-vcf <- read.vcfR("ERR1878035.filtered.bcf.vcf",
+vcf <- read.vcfR("B457_merged.filtered.bcf.vcf",
                  verbose = TRUE )
 vcf2 <- tbl_df(vcf@fix)
 
@@ -55,6 +55,16 @@ vcf3 <- vcf2  %>%
            as.numeric(((as.numeric(DP4_fwd_alt)+
                           as.numeric(DP4_rev_alt))/
                          as.numeric(total_DP4)))) %>%
+  # Try to pick up hets 
+  mutate(AD=sub(".*?AD=(.*?);.*", "\\1",
+                 INFO)) %>%
+  # Split AD across 2 columns
+  separate(AD, c("AD1","AD2"),sep=",") %>%
+  # Get hets
+  mutate(max_AD = pmax(AD1, AD2)) %>%
+  mutate(het_calc = as.integer(max_AD)/as.integer(total_DP4)) %>%
+  mutate(is_het = ifelse(het_calc < 0.9,"Het","Hom")) %>%
+  filter(is_het=="Het") %>%
   arrange(as.numeric(POS)) %>%
   type_convert()
 
@@ -69,6 +79,15 @@ plot_points <- vcf3 %>%
   ggtitle("All LowQual SNVs") + 
   ylab("Proportion of reads mapped") + 
   xlab("Position in reference")
+
+plot_pos_depth <- vcf3 %>%
+  ggplot(aes(x=POS,y=total_DP4), colour="black") + 
+  geom_point() + 
+  scale_x_continuous(limits=c(0,4809037)) + 
+  theme_classic()  + 
+  ggtitle("All LowQual SNVs") + 
+  xlab("Position in reference") +
+  ylab("Read depth")
 
 plot_pos <- vcf3 %>%
   ggplot(aes(x=POS), colour="black") + 
@@ -94,7 +113,6 @@ plot_points_excluded <- vcf4 %>%
   ylab("Proportion of reads mapped") + 
   xlab("Position in reference")
 
-
 plot_pos_excluded <- vcf4 %>%
   ggplot(aes(x=POS), colour="black") + 
   geom_histogram(bins=200) + 
@@ -104,5 +122,14 @@ plot_pos_excluded <- vcf4 %>%
   xlab("Position in reference") +
   ylab("Number of SNVs called")
 
+plot_pos_depth_excluded <- vcf4 %>%
+  ggplot(aes(x=POS,y=total_DP4), colour="black") + 
+  geom_point() + 
+  scale_x_continuous(limits=c(0,4809037)) + 
+  theme_classic()  + 
+  ggtitle("Non-excluded LowQual SNVs") + 
+  xlab("Position in reference") +
+  ylab("Read depth")
+
 # Arrange plots
-plot_points/plot_pos|plot_points_excluded/plot_pos_excluded
+plot_points/plot_pos_depth/plot_pos|plot_points_excluded/plot_pos_depth_excluded/plot_pos_excluded
