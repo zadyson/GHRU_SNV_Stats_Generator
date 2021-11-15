@@ -49,7 +49,7 @@ python2 GHRU_SNV_Stats_Generator.py --bcf *.bcf --excluded_regions CT18_repeats_
 
 ### Example useage (batch submission to lsf):
 ```
-bash run_bcf_batches.sh Wong2015_Tanzania
+run_ghru_snv_stats_in_batches.sh Wong2015_Tanzania
 ```
 
 #### Suggestions for selecting subsets of a larger dataset to analyse
