@@ -7,9 +7,9 @@ GHRU SNV Quality Stats Generator provides summaries of high and low quality SNV 
 #### Example output:
 ```
 column -t example_snv_qc_summary.tsv
-File                      PASS  LowQual  Percent_LowQual  Hets  Percent_Hets   Hets_SB  Percent_Hets_SB  Non-excluded_PASS  Non-excluded_LowQual  Non-excluded_percent_LowQual  Non-excluded_Hets  Non-excluded_percent_Hets
-23584_2#44.filtered.bcf   782   202      25.831202046     17    2.17391304348  4        0.511508951407   485                7                     1.44329896907                 2                  0.412371134021
-B457_merged.filtered.bcf  533   184      34.521575985     27    5.06566604128  8        1.5009380863     374                44                    11.7647058824                 7                  1.87165775401
+File                      PASS  LowQual  Percent_LowQual  Hets  Percent_Hets   Non-excluded_PASS  Non-excluded_LowQual  Non-excluded_percent_LowQual  Non-excluded_Hets  Non-excluded_percent_Hets
+23584_2#44.filtered.bcf   782   202      25.831202046     17    2.17391304348   485                7                     1.44329896907                 2                  0.412371134021
+B457_merged.filtered.bcf  533   184      34.521575985     27    5.06566604128     374                44                    11.7647058824                 7                  1.87165775401
 ```
 
 **CT18_repeats_phages_excluded_regions.tsv** - Phage and repeat regions normally excluded from phylogenetic analysis of S. Typhi (CT18: accession no. AL513382).&nbsp;
