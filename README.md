@@ -31,6 +31,8 @@ B457_merged.filtered.bcf  533   184      34.521575985     27    5.06566604128   
 ### Cluster modules (and dependancies) to load before running the script:
 
 ```
+python2
+
 module load bsub.py/0.42.1
 
 module load bcftools/1.2--h02bfda8_4
