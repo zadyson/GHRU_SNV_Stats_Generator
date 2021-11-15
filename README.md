@@ -7,23 +7,10 @@ GHRU SNV Quality Stats Generator provides summaries of high and low quality SNV 
 #### Example output:
 ```
 column -t example_snv_qc_summary.tsv
-
-File                                 PASS    LowQual  Percent_LowQual  Non-excluded_PASS  Non-excluded_LowQual  Non-excluded_percent_LowQual
-10060_5#21.filtered.bcf              562     239      42.5266903915    471                35                    7.43099787686
-10071_3#74.filtered.bcf              558     239      42.8315412186    471                42                    8.91719745223
-10209_5#27.filtered.bcf              369     256      69.3766937669    269                70                    26.0223048327
-10561_2#28.filtered.bcf              307     267      86.9706840391    218                106                   48.623853211
-10561_2#34.filtered.bcf              312     218      69.8717948718    216                59                    27.3148148148
-13566_1#17.filtered.bcf              442     173      39.1402714932    189                2                     1.0582010582
-22420_1#100.filtered.bcf             581     143      24.6127366609    384                4                     1.04166666667
-22420_1#88.filtered.bcf              542     158      29.1512915129    379                3                     0.791556728232
-23099_8#14.filtered.bcf              316     235      74.3670886076    216                4                     1.85185185185
-23099_8#15.filtered.bcf              324     180      55.5555555556    216                4                     1.85185185185
-23584_2#12.filtered.bcf              779     200      25.6739409499    481                9                     1.8711018711
-23584_2#19.filtered.bcf              780     192      24.6153846154    481                8                     1.6632016632
-23584_2#37.filtered.bcf              788     188      23.8578680203    482                10                    2.07468879668
+File                      PASS  LowQual  Percent_LowQual  Hets  Percent_Hets   Hets_SB  Percent_Hets_SB  Non-excluded_PASS  Non-excluded_LowQual  Non-excluded_percent_LowQual  Non-excluded_Hets  Non-excluded_percent_Hets
+23584_2#44.filtered.bcf   782   202      25.831202046     17    2.17391304348  4        0.511508951407   485                7                     1.44329896907                 2                  0.412371134021
+B457_merged.filtered.bcf  533   184      34.521575985     27    5.06566604128  8        1.5009380863     374                44                    11.7647058824                 7                  1.87165775401
 ```
-
 
 **CT18_repeats_phages_excluded_regions.tsv** - Phage and repeat regions normally excluded from phylogenetic analysis of S. Typhi (CT18: accession no. AL513382).&nbsp;
 
@@ -34,7 +21,7 @@ File                                 PASS    LowQual  Percent_LowQual  Non-exclu
 #### Example plot from above R code
 - Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is 'False' as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual SNVs) in the code for saving vcfs depending on the QC issue being diagnosed.  Red points indicate the alternative allele, black points indicate the reference allele.
 - For other more sophisticatd vcf visualisation options please see: https://github.com/zadyson/SNV_plotter 
-![image](https://user-images.githubusercontent.com/8507671/141645175-84e59491-2f0c-4b4b-80c8-bc42c61423ed.png)
+![image](https://user-images.githubusercontent.com/8507671/141830554-76c78c17-7d90-427f-9fba-efd2e816455f.png)
 
 
 
