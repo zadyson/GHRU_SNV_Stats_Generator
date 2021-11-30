@@ -57,3 +57,8 @@ run_ghru_snv_stats_in_batches.sh Wong2015_Tanzania
 while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru_mapping/filtered_bcfs/${file}.filtered.bcf ./; done<ids.txt
 ```
 - Where ids.txt is a plain text file (e.g. created with nano) where one lane id is given per line.
+
+#### Suggestions for extracting vcf from bcf for plotting
+```
+for file in *.filtered.bcf; do bcftools view $file | bcftools view > ${file}.vcf; done
+```
