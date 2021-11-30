@@ -1,8 +1,8 @@
-# GHRU_SNV_Stats_Generator
-GHRU SNV Quality Stats Generator provides summaries of high and low quality SNV calls from the GHRU mapping pipeline
+# SNV_Stats_Generator
+SNV Quality Stats Generator provides summaries of high and low quality SNV calls from the GHRU mapping pipeline
 
 ## What is in this repo?
-**GHRU_SNV_Stats_Generator.py** - python script for extracting high (PASS) and low (LowQual) SNV calls from bcf files produced by the GHRU mapping pipeline (available at: https://gitlab.com/cgps/ghru/pipelines/snp_phylogeny/).  Output is a tsv file of PASS and LowQual SNVs both inside and outside excluded reigons (e.g. repetitive and prophage reigons normally exlcuded for phylogentic analyses).  &nbsp;
+**SNV_Stats_Generator.py** - python script for extracting high (PASS),low (LowQual), and heterozygous SNV calls from bcf files produced by the GHRU mapping pipeline (available at: https://gitlab.com/cgps/ghru/pipelines/snp_phylogeny/).  Output is a tsv file of PASS and LowQual SNVs both inside and outside excluded reigons (e.g. repetitive and prophage reigons normally exlcuded for phylogentic analyses).  &nbsp;
 
 #### Example output:
 ```
