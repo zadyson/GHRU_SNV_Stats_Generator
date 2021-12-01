@@ -19,10 +19,14 @@ B457_merged.filtered.bcf  533   184      34.521575985     27    5.06566604128   
 
 **Plot_Low_Qual_SNV_Distribution.R** - example R plotting script - visualises the distribution of low qual SNV calls throughout the reference sequence both before an after the removal of those falling within repetitive and phage regions (normally excluded for phylogenetic analysis).&nbsp;
 
+**Plot_Het_SNV_Distributions.R** - example R plotting script for iterating over vcf files (converted from bcf - see below) - visualises the distribution of Het SNV calls throughout the reference sequence both before an after the removal of those falling within repetitive and phage regions (normally excluded for phylogenetic analysis).&nbsp;
+
 #### Example plot from above R code
-- Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is 'False' as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual SNVs) in the code for saving vcfs depending on the QC issue being diagnosed.  Red points indicate the alternative allele, black points indicate the reference allele.
+- Note that '--save_high_lowqual True' must be used with the above python script to save compatible vcf files (converted from bcf) for use with the R script. The default is 'False' as the files can be very large (~700Mb).  It may be worth changing the percentage cutoff (10% non-excluded lowqual SNVs) in the code for saving vcfs depending on the QC issue being diagnosed.  A suggested bash one liner is provided at the end of the page for converting bcf files to vcf files manually.  Red points indicate the alternative allele, black points indicate the reference allele.
 - For other more sophisticatd vcf visualisation options please see: https://github.com/zadyson/SNV_plotter 
-![image](https://user-images.githubusercontent.com/8507671/141830554-76c78c17-7d90-427f-9fba-efd2e816455f.png)
+
+![image](https://user-images.githubusercontent.com/8507671/144291749-873ebfed-dc10-48d6-a525-b9123f62f08c.png)
+
 
 
 
