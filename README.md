@@ -66,3 +66,7 @@ while read file; do ln -s /lustre/scratch118/infgen/team216/jk27/typhinet/*/ghru
 ```
 for file in *.filtered.bcf; do bcftools view $file | bcftools view > ${file}.vcf; done
 ```
+
+
+
+This project has received funding from the European Union's Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 845681. <img src="https://user-images.githubusercontent.com/8507671/153406979-9462c466-5a65-469e-adb6-14e271fd9e21.jpg" height="30" />
